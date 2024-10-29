@@ -1,0 +1,37 @@
+li, a, button {
+    text-decoration: none;
+    list-style: none;
+}
+
+nav {
+    justify-content: space-between;
+    background-color: red;
+}
+.flex-row{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.main-searchbar-section{
+    background-color: blanchedalmond;
+    padding: 3rem;
+}
+#search-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+.search-feature{
+    height: 2rem;
+    border: none;
+    box-shadow: 1px 1px 2px grey;
+    border-radius: 20px;
+}
+.search-bar{
+    width: 70%;
+    padding-left: .5rem;
+}
+.search-btn{
+    padding: 0 3rem;
+}

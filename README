@@ -1,0 +1,22 @@
+ <<< STILL IN PROGRESS >>>
+
+This is a Capstone project for my web dev course. 
+
+This is a web application that allows to make a list of read books. Make notes on each one, reviews, rate etc.
+
+Technologies used:
+- HTML, CSS, JAVASCRIPT, NODE, EJS, POSTGRESQL
+
+API used:
+- google books api
+
+HOW TO RUN:
+- Clone this repo
+- cd to root and install all npm packages:
+    - On terminal run:
+        - npm install
+
+The app will need a database to store your entries and lists. So if you will only run it locally, in the index.js file just replace all the process.env. variables with your own (port and database credentials).
+If you prefer to hide your credentials, leave the index.js as it is and instead, in the root directory of the project create a file " .env " , copy the content of example.env file , paste it into your created .env file and assign your credentials to the specific variables.
+
+- After that you should be able to run: nodemon index.js

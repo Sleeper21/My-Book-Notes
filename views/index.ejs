@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Book Notes</title>
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+
+  <body>
+    <!-- Nav -->
+    <section>
+      <nav class="flex-row">
+        <div class="logo_home flex-row">
+          <h1>My Book Notes</h1>
+          <p>home</p>
+        </div>
+        <div>
+          <ul class="nav-buttons flex-row">
+            <li>My Read Books</li>
+            <li>search</li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+  
+    <!-- Search Bar -->
+
+    <section>
+        <div class="main-searchbar-section">
+          <form id="search-form" style="width: 100%;" action="/search">
+            <input class="search-feature search-bar" type="text" placeholder="Search a book title or author">
+            <button class="search-feature search-btn" type="submit"> Search </button>
+          </form>
+        </div>        
+    </section>
+
+    <!-- My Books section -->
+
+    <section>
+      <div class="my-books-wrapper">
+
+        <% if (myBooks.length === 0) { %>
+          <h1>No books yet added to your list. You should read a book!</h1>
+        <% } else { %> 
+          
+          <div class="my-books-header-container">
+            <div class="header-title">
+              <h1>Books I have read</h1>
+            </div>
+
+            <div class="header-sortby-container">
+              <a href="#" class="sort-button" onclick="showSortByOptions()">
+                <span>Sort by</span>
+                <img class="dropdown-icon" style="width: 1rem; height: 1rem;" src="images/dropdown.svg" alt="sort by">
+            </a>
+            </div>            
+          </div>
+
+          <% myBooks.forEach(book => { %>
+
+          <div class="book-card-container">
+            <h2> <%= book.book_name %> </h2>
+            <p> <%= book.author %> </p>
+            <p> <span style="font-weight: 600;">Review: </span> <%= book.rating %> /10 </p>
+            <p> <span style="font-weight: 600;">Finished on: </span> <%= book.month %> , <%= book.year %> </p>
+            <p> <span style="font-weight: 600;">My Notes:</span> <%= book.note %> </p>
+            
+            <div class="interact-buttons-container">
+              <button class="edit-btn">Edit</button>
+              <button class="add-btn">Add Note</button>
+              <button class="delete-btn">Delete this book</button>
+            </div>
+
+          </div>
+          
+        <% } ) } %>
+        
+      </div>
+    </section>
+  
+  </body>
+</html>
