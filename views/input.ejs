@@ -1,0 +1,53 @@
+<%- include("partials/header") %>
+
+<section>
+    <div class="wrapper">
+        <div class="book-card-head">
+            <picture>
+                <% if (book.volumeInfo.imageLinks) { %>
+                    <img class="thumbnail" src="<%= book.volumeInfo.imageLinks.smallThumbnail %>" alt="<%= book.volumeInfo.title %>">
+                <% } else { %>
+                    <p>Image not available</p>
+                <% } %>
+            </picture>
+            <div class="book-card-text">
+            <h2> <%= book.volumeInfo.title %> </h2>
+            <p>Author(s): <%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %> </p>
+            <p>Published on: <%= book.volumeInfo.publishedDate %></p>
+            </div>
+            
+        </div>
+
+        
+        <div class="form-title">
+            <h2>Write your thoughts about the book.</h2>
+            <h3>Don't worry, you can always update them later, delete or even add more notes</h3>
+        </div>
+        <div class="inputs-form-container">
+            <form action="#/add-toList" method="post" class="form-inputs">
+                <label class="label-inputs" for="year">Finish reading on year:</label>
+                <input type="text" placeholder="Year -> eg '2024'" name="year" required>
+                <label class="label-inputs" for="month"> Month </label>
+                <select name="month" id="months" required>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+
+                <label class="label-inputs" for="notes">Add a note or review (You can edit or add more anytime)</label>
+                <textarea name="notes" id="notesId" placeholder="Write your review, notes or whatever you want"
+                rows="30" cols="50"></textarea>
+            </form>
+        </div>
+
+    </div>
+</section>

@@ -35,3 +35,40 @@ nav {
 .search-btn{
     padding: 0 3rem;
 }
+
+.wrapper{
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 20%;
+}
+
+
+
+/* //////////////////// add inputs view /////////////////*/
+
+.book-card-head{
+    display: flex;
+    gap: 2rem;
+}
+.book-card-text{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.inputs-form-container{
+    background-color: seagreen;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+}
+.label-inputs{
+    padding-top: 2rem;
+}
+.form-inputs{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+}

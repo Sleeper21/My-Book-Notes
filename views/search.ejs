@@ -1,0 +1,49 @@
+<%- include("partials/header") %>
+
+<section>
+    <div class="wrapper">
+
+        <% if (books.length === 0) { %>
+          <h1>No books found. Try Again.</h1>
+        <% } else { %> 
+
+            <div class="header-sortby-container">
+              <a href="#" class="sort-button" onclick="showSortByOptions()">
+                <span>Sort by</span>
+                <img class="dropdown-icon" style="width: 1rem; height: 1rem;" src="images/dropdown.svg" alt="sort by">
+              </a>
+            </div>
+
+            <% books.forEach(book => { %>
+
+                <div class="book-card-container">
+                    <div class="book-card-head">
+                        <picture>
+                            <% if (book.volumeInfo.imageLinks) { %>
+                                <img class="thumbnail" src="<%= book.volumeInfo.imageLinks.thumbnail %>" alt="<%= book.volumeInfo.title %>">
+                            <% } else { %>
+                                <p>Image not available</p>
+                            <% } %>
+                        </picture>
+                        <h2> <%= book.volumeInfo.title %> </h2>
+                         <p>Author(s): <%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %> </p>
+                         <p> Page count: <%= book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "not available" %> </p>
+                         <p>Published on: <%= book.volumeInfo.publishedDate %></p>
+                    </div>
+                    
+                    <div class="book-card-description">
+                        <p> <%= book.volumeInfo.description %> </p>
+                    </div>
+
+                    <div class="interact-buttons-container">
+                        <form action="/add" method="post">
+                        <button class="add-btn" type="submit" name="bookApiId" value="<%= book.id %>">Add to my list</button>
+                        </form>
+                    </div>
+
+
+                </div>
+
+                
+        <% } ) } %>
+</section>

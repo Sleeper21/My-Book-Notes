@@ -1,44 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Book Notes</title>
-    <link rel="stylesheet" href="style/style.css" />
-  </head>
 
-  <body>
-    <!-- Nav -->
-    <section>
-      <nav class="flex-row">
-        <div class="logo_home flex-row">
-          <h1>My Book Notes</h1>
-          <p>home</p>
-        </div>
-        <div>
-          <ul class="nav-buttons flex-row">
-            <li>My Read Books</li>
-            <li>search</li>
-          </ul>
-        </div>
-      </nav>
-    </section>
-  
-    <!-- Search Bar -->
-
-    <section>
-        <div class="main-searchbar-section">
-          <form id="search-form" style="width: 100%;" action="/search">
-            <input class="search-feature search-bar" type="text" placeholder="Search a book title or author">
-            <button class="search-feature search-btn" type="submit"> Search </button>
-          </form>
-        </div>        
-    </section>
+<%- include("partials/header") %>
 
     <!-- My Books section -->
 
     <section>
-      <div class="my-books-wrapper">
+      <div class="wrapper">
 
         <% if (myBooks.length === 0) { %>
           <h1>No books yet added to your list. You should read a book!</h1>
