@@ -2,52 +2,122 @@
 
 <section>
     <div class="wrapper">
-        <div class="book-card-head">
-            <picture>
-                <% if (book.volumeInfo.imageLinks) { %>
-                    <img class="thumbnail" src="<%= book.volumeInfo.imageLinks.smallThumbnail %>" alt="<%= book.volumeInfo.title %>">
-                <% } else { %>
-                    <p>Image not available</p>
-                <% } %>
-            </picture>
-            <div class="book-card-text">
-            <h2> <%= book.volumeInfo.title %> </h2>
-            <p>Author(s): <%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %> </p>
-            <p>Published on: <%= book.volumeInfo.publishedDate %></p>
+
+        <% if (locals.book) {%>
+            <div class="book-card-head">
+                <picture>
+                    <% if (book.volumeInfo.imageLinks) { %>
+                        <img class="thumbnail" src="<%= book.volumeInfo.imageLinks.smallThumbnail %>" alt="<%= book.volumeInfo.title %>">
+                    <% } else { %>
+                        <p>Image not available</p>
+                    <% } %>
+                </picture>
+                <div class="book-card-text">
+                <h2> <%= book.volumeInfo.title %> </h2>
+                <p>Author(s): <%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %> </p>
+                <p>Published on: <%= book.volumeInfo.publishedDate %></p>
+                </div>
+                
+            </div>
+    
+            
+            <div class="form-title">
+                <h2>Write your thoughts about the book.</h2>
+                <h3>Don't worry, you can always update them later, delete or even add more notes</h3>
+            </div>
+            <div class="inputs-form-container">
+                <form action="/add/submit" method="post" class="form-inputs">
+                    <div class="finish-date-section">
+                        <input type="hidden" name="bookId" value="<%= book.id %>">
+                        <input type="hidden" name="bookTitle" value="<%= book.volumeInfo.title %>">
+                        <input type="hidden" name="bookAuthor" value="<%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %>">
+                        <input type="hidden" name="bookImage" value="<%= book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.smallThumbnail : "n/a" %>">
+                        <label class="label-inputs" for="year"><b>Finish reading on year: </b></label>
+                        <input type="number" id="year" min="1900" placeholder="eg '2024'" name="year" required>
+                        <label class="label-inputs month" for="month"> Month </label>
+                        <select name="month" id="months" required>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                        </select>
+                    </div>
+                    <label class="label-inputs" for="rating"><b>Your Rating (0-10):</b> </label>
+                    <input type="number" id="rating" name="rating" min="0" max="10" required>               
+    
+                    <label class="label-inputs" for="notes">Add a note or review (You can edit or add more anytime)</label>
+                    <textarea name="notes" id="notesId" placeholder="Write your review, notes or whatever you want"
+                    rows="30" cols="50"></textarea>
+    
+                    <button class="submit-btn btn" id="submit-input-btn" type="submit">Submit</button>
+                </form>
+            </div>
+
+        <% } else if (locals.toEdit) {%>
+
+            <div class="book-card-head">
+                <picture>
+                    <% if (toEdit.small_image) { %>
+                        <img class="thumbnail" src="<%= toEdit.small_image %>" alt="<%= toEdit.book_name %>">
+                    <% } else { %>
+                        <p>Image not available</p>
+                    <% } %>
+                </picture>
+                <div class="book-card-text">
+                <h2> <%= toEdit.book_name %> </h2>
+                <p>Author(s): <%= toEdit.author %> </p>
+                </div>                
+            </div>    
+            
+            <div class="inputs-form-container">
+                <form action="/edit/submit" method="post" class="form-inputs">
+                    <div class="finish-date-section">
+                        <input type="hidden" name="bookId" value="<%= toEdit.api_id %>">
+
+                        <label class="label-inputs" for="year"><b>Finish reading on year: </b></label>
+                        <input type="number" id="year" value="<%= toEdit.year %>" min="1900" placeholder="eg '2024'" name="year" required>
+                        <label class="label-inputs month" for="month"> Month </label>
+                        <select name="month" id="months" required> <!-- default select the option already selected in the db -->
+                        <option value="January" <%= toEdit.month === 'January' ? "selected" : "" %>>January</option>
+                        <option value="February" <%= toEdit.month === 'February' ? "selected" : "" %>>February</option>
+                        <option value="March" <%= toEdit.month === 'March' ? "selected" : "" %>>March</option>
+                        <option value="April" <%= toEdit.month === 'April' ? "selected" : "" %>>April</option>
+                        <option value="May" <%= toEdit.month === 'May' ? "selected" : "" %>>May</option>
+                        <option value="June" <%= toEdit.month === 'June' ? "selected" : "" %>>June</option>
+                        <option value="July" <%= toEdit.month === 'July' ? "selected" : "" %>>July</option>
+                        <option value="August" <%= toEdit.month === 'August' ? "selected" : "" %>>August</option>
+                        <option value="September" <%= toEdit.month === 'September' ? "selected" : "" %>>September</option>
+                        <option value="October" <%= toEdit.month === 'October' ? "selected" : "" %>>October</option>
+                        <option value="November" <%= toEdit.month === 'November' ? "selected" : "" %>>November</option>
+                        <option value="December" <%= toEdit.month === 'December' ? "selected" : "" %>>December</option>
+                        </select>
+                    </div>
+                    <label class="label-inputs" for="rating"><b>Your Rating (0-10):</b> </label>
+                    <input type="number" id="rating" name="rating" value="<%= toEdit.rating %>" min="0" max="10" required>               
+    
+                    <label class="label-inputs" for="notes">Add or Edit your notebooks</label>
+                    <textarea name="notes" id="notesId" placeholder="Write your review, notes or whatever you want"
+                    rows="30" cols="50" style="padding: .2rem;"> <%= toEdit.note %> </textarea>
+                    
+                    <div class="flex-row">
+                      <button class="submit-btn btn" id="submit-input-btn" type="submit">Submit Changes</button>
+                      <button class="reset-btn btn" id="submit-input-btn" type="reset">Reset All Changes</button>
+                    </div>                    
+                </form>
             </div>
             
-        </div>
-
-        
-        <div class="form-title">
-            <h2>Write your thoughts about the book.</h2>
-            <h3>Don't worry, you can always update them later, delete or even add more notes</h3>
-        </div>
-        <div class="inputs-form-container">
-            <form action="#/add-toList" method="post" class="form-inputs">
-                <label class="label-inputs" for="year">Finish reading on year:</label>
-                <input type="text" placeholder="Year -> eg '2024'" name="year" required>
-                <label class="label-inputs" for="month"> Month </label>
-                <select name="month" id="months" required>
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                </select>
-
-                <label class="label-inputs" for="notes">Add a note or review (You can edit or add more anytime)</label>
-                <textarea name="notes" id="notesId" placeholder="Write your review, notes or whatever you want"
-                rows="30" cols="50"></textarea>
-            </form>
-        </div>
-
+        <% } %>
     </div>
-</section>
+</section>     
+
+<script>
+    document.getElementById("year").max = new Date().getFullYear(); // Forces the user to insert a numerical year maxing the current year
+</script>

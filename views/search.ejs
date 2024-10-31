@@ -25,19 +25,22 @@
                                 <p>Image not available</p>
                             <% } %>
                         </picture>
-                        <h2> <%= book.volumeInfo.title %> </h2>
+                        <div class="book-card-text sm-pad-l">
+                         <h2> <%= book.volumeInfo.title %> </h2>
                          <p>Author(s): <%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %> </p>
                          <p> Page count: <%= book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "not available" %> </p>
                          <p>Published on: <%= book.volumeInfo.publishedDate %></p>
+                        </div>
                     </div>
                     
                     <div class="book-card-description">
+                        <p class="description-title">Description:</p>
                         <p> <%= book.volumeInfo.description %> </p>
                     </div>
 
                     <div class="interact-buttons-container">
                         <form action="/add" method="post">
-                        <button class="add-btn" type="submit" name="bookApiId" value="<%= book.id %>">Add to my list</button>
+                        <button class="add-btn btn" type="submit" name="bookApiId" value="<%= book.id %>">Add to my list</button>
                         </form>
                     </div>
 

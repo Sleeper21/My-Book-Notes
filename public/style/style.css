@@ -1,16 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 li, a, button {
     text-decoration: none;
     list-style: none;
 }
-
-nav {
+.btn{
+    padding: 8px 15px;
+    border: none;
+    border-radius: 7px;
+    box-shadow: 1px 1px 2px black;
+}
+nav{
     justify-content: space-between;
     background-color: red;
+}
+.space-between{
+    justify-content: space-between;
 }
 .flex-row{
     display: flex;
     align-items: center;
     gap: 1.5rem;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.sm-pad-l{
+    padding-left: 1.5rem;
 }
 .main-searchbar-section{
     background-color: blanchedalmond;
@@ -41,22 +62,86 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem 20%;
+    padding: 2rem 15%;
 }
-
-
-
-/* //////////////////// add inputs view /////////////////*/
-
+.book-card-container{
+    background-color: rgb(165, 165, 165);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px black;
+}
 .book-card-head{
     display: flex;
-    gap: 2rem;
+    flex-wrap: wrap;
 }
 .book-card-text{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 }
+.book-card-text > h2{
+    padding-bottom: 2rem;
+}
+.book-card-text > p{
+    padding-bottom: .75rem;
+}
+.rating-section{
+    display: flex;
+    align-items: center;
+    padding-right: 5rem;
+}
+.rate-title{
+    font-weight: 600;
+    padding-right: .5rem;
+}
+#rating-number{
+    font-weight: 900;
+    font-size: 2.5rem;
+}
+.my-notes-title{
+    font-weight: 600;
+    font-size: 1.25rem;
+    padding-bottom: .5rem;
+    padding-left: .5rem;
+}
+#myNotes{
+    background-color: hsl(26, 7%, 81%);
+    backdrop-filter: blur(50px);
+    border-radius: 10px;
+    padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+    box-shadow: 2px 2px 6px black;
+}
+.interact-buttons-container{
+    padding-top: 1rem;
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Special format for the notes rendering */
+.format-notes{
+    white-space: pre-wrap;/* to preserve white spaces and enters */
+}
+.format-notes .tab{
+    margin-left: 15px;
+    display: block;
+}
+
+/* ////////////////////specifics search view /////////////////*/
+.book-card-description{
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+}
+.description-title{
+    font-weight: 600;
+    font-size: 1.15rem;
+    padding-bottom: .25rem;
+}
+
+
+/* ////////////////////specifics add inputs view /////////////////*/
+
 .inputs-form-container{
     background-color: seagreen;
     padding-left: 1rem;
@@ -71,4 +156,19 @@ nav {
     flex-direction: column;
     align-items: left;
     justify-content: center;
+}
+.finish-date-section{
+    display: flex;
+    padding: 0;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: .5rem;
+}
+.month{padding-left: 2rem;}
+#rating{
+    width: 50px;
+}
+#submit-input-btn{
+    margin-top: 1rem;
+    width: 25%;    
 }

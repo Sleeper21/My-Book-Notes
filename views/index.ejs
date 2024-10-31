@@ -1,7 +1,7 @@
 
 <%- include("partials/header") %>
 
-    <!-- My Books section -->
+    <!-- Books I have read section -->
 
     <section>
       <div class="wrapper">
@@ -26,20 +26,46 @@
           <% myBooks.forEach(book => { %>
 
           <div class="book-card-container">
-            <h2> <%= book.book_name %> </h2>
-            <p> <%= book.author %> </p>
-            <p> <span style="font-weight: 600;">Review: </span> <%= book.rating %> /10 </p>
-            <p> <span style="font-weight: 600;">Finished on: </span> <%= book.month %> , <%= book.year %> </p>
-            <p> <span style="font-weight: 600;">My Notes:</span> <%= book.note %> </p>
+            <div class="book-card-head space-between">
+              <div class="book-card-text">
+               <h2> <%= book.book_name %> </h2>
+               <p> <b>Author(s): </b> <%= book.author %> </p>              
+               <p> <span style="font-weight: 600;">Finished on: </span> <%= book.month %> , <%= book.year %> </p>
+               <div class="rating-section">
+                 <p class="rate-title">My Rate:</p>
+                 <p id="rating-number"> <%= book.rating %> /10 </p>
+               </div>
+              </div>
+             <picture>
+               <% if (book.small_image) { %>
+                   <img class="thumbnail" src="<%= book.small_image %>" alt="<%= book.book_name %>">
+               <% } else { %>
+                   <p>Image not available</p>
+               <% } %>
+               </picture>
+            </div>
+            
+            <p class="my-notes-title">My Notes: </p>
+            <% if (book.note) {%>
+              <p id="myNotes" class="format-notes"> <%- book.note
+                .trim()  // 
+                .replace(/\r?\n/g, "<br>") %> </p>
+              <!-- trim Remove blank spaces in the beginning and in the end  -->
+              <!-- the replace line will replace line breaks or enters with <br> -->
+
+            <% } else { %>
+              <p id="myNotes">No notes about this book. Add <a href="#">here</a></p>
+            <% } %>
             
             <div class="interact-buttons-container">
-              <button class="edit-btn">Edit</button>
-              <button class="add-btn">Add Note</button>
-              <button class="delete-btn">Delete this book</button>
+              <form action="/edit" method="get">
+                <input type="hidden" name="apiId" value="<%= book.api_id %>">
+              <button type="submit" class="add-note-btn btn">Edit / Add Note</button>
+              </form>
+              <button class="delete-btn btn">Delete this book</button>
             </div>
 
-          </div>
-          
+          </div>          
         <% } ) } %>
         
       </div>
