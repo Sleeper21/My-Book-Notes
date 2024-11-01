@@ -142,6 +142,17 @@ app.post("/add/submit", async (req, res) => {
         }    
 })
 
+app.get("/delete/:id/", async (req, res) =>{
+    const requestedId = req.params.id    
+        try {
+             await db.query("DELETE FROM books WHERE api_id = $1", [requestedId]);
+             res.redirect("/")
+                     
+        } catch (error) {
+            console.log("Couldn't delete the data from the Database.", error)
+        }
+})
+
 //Port
 app.listen(port, () =>{
     console.log("Server running at http://localhost:" + port);

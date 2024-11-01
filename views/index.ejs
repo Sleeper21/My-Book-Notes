@@ -50,19 +50,33 @@
               <p id="myNotes" class="format-notes"> <%- book.note
                 .trim()  // 
                 .replace(/\r?\n/g, "<br>") %> </p>
-              <!-- trim Remove blank spaces in the beginning and in the end  -->
+              <!-- trim removes blank spaces in the beginning and in the end  -->
               <!-- the replace line will replace line breaks or enters with <br> -->
 
             <% } else { %>
-              <p id="myNotes">No notes about this book. Add <a href="#">here</a></p>
+              <p id="myNotes">No notes about this book. Add something.</p>
             <% } %>
             
             <div class="interact-buttons-container">
               <form action="/edit" method="get">
                 <input type="hidden" name="apiId" value="<%= book.api_id %>">
-              <button type="submit" class="add-note-btn btn">Edit / Add Note</button>
+                <button type="submit" class="add-note-btn btn">Edit / Add Note</button>
               </form>
-              <button class="delete-btn btn">Delete this book</button>
+              <form action="/delete/<%= book.api_id %>" method="get" onsubmit="return confirmDelete(event, '<%= book.book_name %>')">
+                <button type="submit" class="delete-btn btn">Delete this book</button>
+              </form>
+
+              <script>
+                function confirmDelete(event, book_name) {
+                  const confirmed = confirm("Wait! This will delete the book " + book_name + " from your list, and all your notes, rating related to this book!");
+                  if (confirmed){
+                    return confirmed;
+                  } else { 
+                    event.preventDefault();
+                  }
+                };           
+              </script>
+              
             </div>
 
           </div>          
@@ -70,6 +84,7 @@
         
       </div>
     </section>
+  
   
   </body>
 </html>
