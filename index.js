@@ -142,12 +142,17 @@ app.post("/add/submit", async (req, res) => {
         }    
 })
 
+app.get("/sortBy", async (req, res) =>{
+    const request = req.query.sortBy
+    console.log(request)
+})
+
 app.get("/delete/:id/", async (req, res) =>{
     const requestedId = req.params.id    
         try {
              await db.query("DELETE FROM books WHERE api_id = $1", [requestedId]);
              res.redirect("/")
-                     
+
         } catch (error) {
             console.log("Couldn't delete the data from the Database.", error)
         }

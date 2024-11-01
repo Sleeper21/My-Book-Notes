@@ -10,16 +10,23 @@
           <h1>No books yet added to your list. You should read a book!</h1>
         <% } else { %> 
           
-          <div class="my-books-header-container">
+          <div class="space-between flex-row">
             <div class="header-title">
               <h1>Books I have read</h1>
             </div>
 
-            <div class="header-sortby-container">
-              <a href="#" class="sort-button" onclick="showSortByOptions()">
+            <div class="sortby-container">
+              <button class="sort-button flex-row" onclick="showSortByOptions()">
                 <span>Sort by</span>
-                <img class="dropdown-icon" style="width: 1rem; height: 1rem;" src="images/dropdown.svg" alt="sort by">
-            </a>
+                <img class="dropdown-icon" style="width: 25px; height: 25px;" src="images/dropdown.svg" alt="sort by">
+              </button>
+              <div id="sortBy-options" class="hidden-options hidden">
+                <form action="#" method="get">
+                 <button type="submit" name="sortBy" value="rating-ASC">Rating (asc)</button>
+                 <button type="submit" name="sortBy" value="rating-DESC">Rating (desc)</button>
+                 <button type="submit" name="sortBy" value="latestRead">Latest read</button>
+                </form>
+              </div>
             </div>            
           </div>
 
@@ -67,6 +74,11 @@
               </form>
 
               <script>
+                function showSortByOptions(){
+                  const element = document.getElementById("sortBy-options")
+                  element.classList.toggle("hidden")
+                }
+
                 function confirmDelete(event, book_name) {
                   const confirmed = confirm("Wait! This will delete the book " + book_name + " from your list, and all your notes, rating related to this book!");
                   if (confirmed){
@@ -74,14 +86,11 @@
                   } else { 
                     event.preventDefault();
                   }
-                };           
-              </script>
-              
+                };          
+              </script>              
             </div>
-
           </div>          
-        <% } ) } %>
-        
+        <% } ) } %>        
       </div>
     </section>
   

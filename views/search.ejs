@@ -27,9 +27,9 @@
                         </picture>
                         <div class="book-card-text sm-pad-l">
                          <h2> <%= book.volumeInfo.title %> </h2>
-                         <p>Author(s): <%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %> </p>
-                         <p> Page count: <%= book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "not available" %> </p>
-                         <p>Published on: <%= book.volumeInfo.publishedDate %></p>
+                         <p><b>Author(s):</b> <%= book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : "Not available." %> </p>
+                         <p> <b>Page count:</b> <%= book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "not available" %> </p>
+                         <p><b>Published on:</b> <%= book.volumeInfo.publishedDate %></p>
                         </div>
                     </div>
                     
