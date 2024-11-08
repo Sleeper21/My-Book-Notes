@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //import Env Variables
 dotenv.config();
 
-const port = process.env.LOCAL_PORT;
+const port = process.env.PORT || process.env.LOCAL_PORT;
 const APIurl = 'https://www.googleapis.com/books/v1/volumes'
 
 
