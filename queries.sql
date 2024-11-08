@@ -21,6 +21,7 @@ CREATE TABLE completion_date (
 id SERIAL PRIMARY KEY,
 book_id INT NOT NULL REFERENCES books(id) ON DELETE CASCADE,
 month VARCHAR(9) NOT NULL,
+month_number INT,
 year INT NOT NULL
 );
 
@@ -48,11 +49,3 @@ INNER JOIN completion_date ON completion_date.book_id = books.id
 INNER JOIN thumbnails ON thumbnails.book_id = books.id 
 ORDER BY books.id DESC;
 
--- //////////// Select content for edit notes ////////////////
-SELECT books.id, book_name, author, api_id, note, rating, month, year, small_image
-FROM books
-INNER JOIN notes ON notes.book_id = books.id
-INNER JOIN ratings ON ratings.book_id = books.id 
-INNER JOIN completion_date ON completion_date.book_id = books.id 
-INNER JOIN thumbnails ON thumbnails.book_id = books.id
-WHERE api_id = $1, [id]

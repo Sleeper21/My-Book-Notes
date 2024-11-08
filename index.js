@@ -27,6 +27,49 @@ const db = new pg.Client({
   });
   db.connect();
 
+function getMonthNumber(month){
+    let monthNumber = 0;
+
+    switch(month){
+        case 'January':
+            monthNumber = 1;
+            break;
+        case 'February':
+            monthNumber = 2;
+            break;
+        case 'March':
+            monthNumber = 3;
+            break;
+        case 'April':
+            monthNumber = 4;
+            break;
+        case 'May':
+            monthNumber = 5;
+            break;
+        case 'June':
+            monthNumber = 6;
+            break;
+        case 'July':
+            monthNumber = 7;
+            break;
+        case 'August':
+            monthNumber = 8;
+            break;
+        case 'September':
+            monthNumber = 9;
+            break;
+        case 'October':
+            monthNumber = 10;
+            break;
+        case 'November':
+            monthNumber = 11;
+            break;
+        case 'December':
+            monthNumber = 12;
+            break;
+    }
+    return monthNumber
+}
 
 
 app.get("/", async (req, res) => {
@@ -73,6 +116,8 @@ app.post("/edit/submit", async (req,res) => {
             }
             if(request.month !== current.month) {
                 await db.query("UPDATE completion_date SET month = $1 WHERE book_id = $2", [request.month, current.id]);
+                
+                await db.query("UPDATE completion_date SET month_number = $1 WHERE book_id = $2", [ getMonthNumber(request.month), current.id]);
             }
             if(request.rating !== current.rating) {
                 await db.query("UPDATE ratings SET rating = $1 WHERE book_id = $2", [request.rating, current.id]);
@@ -95,12 +140,16 @@ app.post("/edit/submit", async (req,res) => {
 })
 
 app.get("/search", async (req, res) => {
-    const searchInput = req.query.search
-    const apiRequest = await axios.get(APIurl + "?q=" + searchInput + "&printType=books&startIndex=0&maxResults=15")
-    const result = apiRequest.data.items //apiRequest.data.items for nested objects content
-    res.render("search.ejs", {
-        books: result,
-    })
+    if (req.query.search){
+        const searchInput = req.query.search
+        const apiRequest = await axios.get(APIurl + "?q=" + searchInput + "&    printType=books&startIndex=0&maxResults=15")
+        const result = apiRequest.data.items //apiRequest.data.items for nested     objects content
+        res.render("search.ejs", {
+            books: result,
+        }) 
+    } else {
+        res.redirect("/")
+    }
 })
 
 app.post("/add", async (req, res) => {
@@ -121,16 +170,18 @@ app.post("/add", async (req, res) => {
 app.post("/add/submit", async (req, res) => {
     
     const input = req.body
+    console.log(input);
+    
         try {
             await db.query("BEGIN");
 
-            const returned = await db.query("INSERT INTO books (book_name, author, api_id) VALUES ($1, $2, $3) RETURNING id", [input.bookTitle, input.bookAuthor, input.bookId]);
-            const id = returned.rows[0].id;
+                const returned = await db.query("INSERT INTO books (book_name, author, api_id)  VALUES ($1, $2, $3) RETURNING id", [input.bookTitle, input.bookAuthor, input.bookId]);
+                const id = returned.rows[0].id;
 
-            await db.query("INSERT INTO completion_date (book_id, month, year) VALUES ($1, $2, $3)", [id, input.month, input.year]);
-            await db.query("INSERT INTO notes (book_id, note) VALUES ($1, $2)", [id, input.notes]);
-            await db.query("INSERT INTO ratings (book_id, rating) VALUES ($1, $2)", [id, input.rating]);
-            await db.query("INSERT INTO thumbnails (book_id, small_image) VALUES ($1, $2)", [id, input.bookImage]);
+                await db.query("INSERT INTO completion_date (book_id, month, year, month_number)    VALUES ($1, $2, $3, $4)", [id, input.month, input.year, getMonthNumber(input.month)]);
+                await db.query("INSERT INTO notes (book_id, note) VALUES ($1, $2)", [id, input.notes]);
+                await db.query("INSERT INTO ratings (book_id, rating) VALUES ($1, $2)", [id,    input.rating]);
+                await db.query("INSERT INTO thumbnails (book_id, small_image) VALUES ($1, $2)",     [id, input.bookImage]);
 
             await db.query("COMMIT");
 
@@ -144,7 +195,27 @@ app.post("/add/submit", async (req, res) => {
 
 app.get("/sortBy", async (req, res) =>{
     const request = req.query.sortBy
-    console.log(request)
+
+    let sortBySpecific = "";
+    if(request === "rating-ASC") {
+        sortBySpecific = "rating ASC"
+    } else if (request === "rating-DESC") {
+        sortBySpecific = "rating DESC"        
+    } else if (request === "latestRead") {
+        sortBySpecific = "year DESC, month_number DESC"
+    } else { sortBySpecific = "books.id DESC" } // default display if the sort does not get read.
+    
+         try {
+             const result = await db.query("SELECT books.id, book_name, author, api_id, note, rating, month, year, month_number, small_image FROM books INNER JOIN notes ON notes.book_id = books.id INNER JOIN ratings ON ratings.book_id = books.id INNER JOIN completion_date ON completion_date.book_id = books.id INNER JOIN thumbnails ON thumbnails.book_id = books.id ORDER BY " + sortBySpecific );
+    
+             const myBooksData = result.rows          
+             res.render("index.ejs", {
+                 myBooks: myBooksData,
+             });        
+         } catch (error) {
+             console.log("Couldn't load data ")
+             console.log(error)
+         }    
 })
 
 app.get("/delete/:id/", async (req, res) =>{

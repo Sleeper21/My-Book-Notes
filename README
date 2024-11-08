@@ -1,11 +1,10 @@
- <<< STILL IN PROGRESS >>>
-
 This is a Capstone project for my web dev course. 
 
 This is a web application that allows to make a list of read books. Make notes on each one, reviews, rate etc.
+The books data like description, cover image and others are fetched from Google books API.
 
 Technologies used:
-- HTML, CSS, JAVASCRIPT, NODE, EJS, POSTGRESQL
+- HTML, CSS, JAVASCRIPT, NODE, EXPRESS.JS, AXIOS, EJS, POSTGRESQL
 
 API used:
 - google books api

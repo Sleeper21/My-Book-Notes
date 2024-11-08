@@ -31,6 +31,9 @@ li, a, button {
     border-radius: 7px;
     box-shadow: 1px 1px 2px black;
 }
+.btn:hover{
+    cursor: pointer;
+}
 .space-between{
     justify-content: space-between;
 }
@@ -48,9 +51,15 @@ li, a, button {
     padding-left: 1.5rem;
 }
 .main-searchbar-section{
+    display: flex;
+    align-items: center;
     background-color: rgb(241, 198, 133);
     padding: 3rem;
     border-bottom: 2px solid darkorange;
+}
+.home-btn:hover{
+    transform: scale(1.2);
+    transition: 100ms ease-in-out;
 }
 #search-form{
     display: flex;
@@ -109,6 +118,7 @@ li, a, button {
 .sort-button:hover{
     background-color: aliceblue;
     box-shadow: 1px 1px 1px black;
+    cursor: pointer;
 }
 .hidden-options{    
     position: absolute;
@@ -191,6 +201,24 @@ li, a, button {
     gap: 1rem;
     flex-wrap: wrap;
 }
+.add-btn{
+    background-color: rgb(241, 198, 133);
+    border: 1px solid black;
+    font-weight: 600;
+}
+.add-btn:hover{
+    background-color: rgb(238, 179, 91);
+    box-shadow: .05px .05px 1px black;
+}
+.delete-btn, .delete-input{
+    background-color: rgb(241, 137, 133);
+    border: 1px solid black;
+    font-weight: 600;
+}
+.delete-btn:hover{
+    background-color: rgb(236, 86, 81);
+    box-shadow: .05px .05px 1px black;
+}
 
 /* Special format for the notes rendering */
 .format-notes{
@@ -214,15 +242,27 @@ li, a, button {
 
 
 /* ////////////////////specifics add inputs view /////////////////*/
-
+.headers-input{
+    padding-left: 1.3rem;
+}
+textarea{
+    background-color: rgb(167, 208, 243);
+    resize: none;
+    padding: .5rem;
+    border: none;
+    font-size: 1.2rem;
+}
 .inputs-form-container{
-    background-color: seagreen;
+    background-color: rgb(200, 228, 252);
+    border: 2px solid black;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 2rem;
 }
 .label-inputs{
     padding-top: 2rem;
+    padding-bottom: .5rem;
+    font-weight: 600;
 }
 .form-inputs{
     display: flex;
@@ -241,7 +281,42 @@ li, a, button {
 #rating{
     width: 50px;
 }
+.input-buttons{
+    padding-top: 1rem;
+}
 #submit-input-btn{
-    margin-top: 1rem;
-    width: 25%;    
+    width: 25%;
+
+}
+
+@media screen and (max-width: 660px) {
+    .wrapper{
+        padding: 1rem 1.5rem;
+    }
+}
+@media screen and (max-width: 450px) {
+    .main-searchbar-section{
+        padding: 1rem;
+    }
+    .wrapper{
+        padding: 1rem .5rem;
+    }
+    .search-bar{
+        height: 2rem;
+    }
+    .search-btn{
+        padding: 0 1rem;
+    }
+}
+@media screen and (max-width: 350px){
+    .book-card-head{
+        display: flex;
+        flex-direction: column;
+    }
+    .search-btn{
+        padding: 0 .5rem;
+    }
+    .search-icon{
+        display: none;
+    }
 }

@@ -21,10 +21,11 @@
                 <img class="dropdown-icon" style="width: 25px; height: 25px;" src="images/dropdown.svg" alt="sort by">
               </button>
               <div id="sortBy-options" class="hidden-options hidden">
-                <form action="#" method="get">
+                <form action="/sortBy" method="get">
                  <button type="submit" name="sortBy" value="rating-ASC">Rating (asc)</button>
                  <button type="submit" name="sortBy" value="rating-DESC">Rating (desc)</button>
                  <button type="submit" name="sortBy" value="latestRead">Latest read</button>
+                 <button type="submit" name="sortBy" value="default">Latest added</button>
                 </form>
               </div>
             </div>            
@@ -67,7 +68,7 @@
             <div class="interact-buttons-container">
               <form action="/edit" method="get">
                 <input type="hidden" name="apiId" value="<%= book.api_id %>">
-                <button type="submit" class="add-note-btn btn">Edit / Add Note</button>
+                <button type="submit" class="add-btn btn">Edit / Add Note</button>
               </form>
               <form action="/delete/<%= book.api_id %>" method="get" onsubmit="return confirmDelete(event, '<%= book.book_name %>')">
                 <button type="submit" class="delete-btn btn">Delete this book</button>
